@@ -1,0 +1,74 @@
+module name=output, target=x86-64-linux-avx-avx2-f16c-fma-sse41
+external_plus_metadata func output (output) {
+assert((reinterpret(uint64, output.buffer) != (uint64)0), halide_error_buffer_argument_is_null("output"))
+let output = _halide_buffer_get_host(output.buffer)
+let output.type.code = _halide_buffer_get_type_code(output.buffer)
+let output.type.bits = _halide_buffer_get_type_bits(output.buffer)
+let output.type.lanes = _halide_buffer_get_type_lanes(output.buffer)
+let output.dimensions = _halide_buffer_get_dimensions(output.buffer)
+let output.min.0 = _halide_buffer_get_min(output.buffer, 0)
+let output.extent.0 = _halide_buffer_get_extent(output.buffer, 0)
+let output.stride.0 = _halide_buffer_get_stride(output.buffer, 0)
+if (_halide_buffer_is_bounds_query(output.buffer)) {
+  _halide_buffer_init(output.buffer, _halide_buffer_get_shape(output.buffer), reinterpret((void *), (uint64)0), (uint64)0, reinterpret((halide_device_interface_t *), (uint64)0), 0, 32, 1, make_struct((halide_dimension_t *), output.min.0, output.extent.0, 1, 0), (uint64)0)
+}
+if (!_halide_buffer_is_bounds_query(output.buffer)) {
+  assert((((output.type.code == (uint8)0) && (output.type.bits == (uint8)32)) && (output.type.lanes == (uint16)1)), halide_error_bad_type("Output buffer output", output.type.code, (uint8)0, output.type.bits, (uint8)32, output.type.lanes, (uint16)1))
+  assert((output.dimensions == 1), halide_error_bad_dimensions("Output buffer output", output.dimensions, 1))
+  assert((0 <= output.extent.0), halide_error_buffer_extents_negative("Output buffer output", 0, output.extent.0))
+  assert((output.stride.0 == 1), halide_error_constraint_violated("output.stride.0", output.stride.0, "1", 1))
+  assert((abs(int64(output.extent.0)) <= (uint64)2147483647), halide_error_buffer_allocation_too_large("output", abs(int64(output.extent.0)), (uint64)2147483647))
+  assert((output != reinterpret((void *), (uint64)0)), halide_error_host_is_null("Output buffer output"))
+  let input.x.extent_realized.s = (max(min(((output.min.0 + output.extent.0) + 8), 999), 0) - max(min(output.min.0, 999), 0))
+  allocate input[int32 * (input.x.extent_realized.s + 1)]
+  produce input {
+    let t95 = max(min(output.min.0, 999), 0)
+    let t96 = (input.x.extent_realized.s + 1)
+    for (input.s0.x, t95, t96) {
+      input[(input.s0.x - t95)] = input.s0.x
+    }
+  }
+  allocate filter[int32 * 10]
+  produce filter {
+    for (filter.s0.x, 0, 10) {
+      filter[filter.s0.x] = (10 - filter.s0.x)
+    }
+  }
+  produce output {
+    for (output.s0.x, output.min.0, output.extent.0) {
+      output[(output.s0.x - output.min.0)] = 0
+    }
+    let output.s1.x.prologue$1 = min(max(output.min.0, 0), (output.extent.0 + output.min.0))
+    let output.s1.x.epilogue$1 = max(min((output.min.0 + output.extent.0), 991), min(max(output.min.0, 0), (output.extent.0 + output.min.0)))
+    let t98 = max(min(output.min.0, 999), 0)
+    let t97 = (output.s1.x.prologue$1 - output.min.0)
+    for (output.s1.x, output.min.0, t97) {
+      let t99 = (output.s1.x - output.min.0)
+      parallel (output.s1.fdom$x, 0, 10) {
+        output[t99] = (output[t99] + (select((output.s1.x < (0 - output.s1.fdom$x)), 0, input[(max((output.s1.x + output.s1.fdom$x), 0) - t98)])*filter[output.s1.fdom$x]))
+      }
+    }
+    let t101 = max(min(output.min.0, 999), 0)
+    let t100 = (output.s1.x.epilogue$1 - output.s1.x.prologue$1)
+    for (output.s1.x, output.s1.x.prologue$1, t100) {
+      let t103 = (output.s1.x - t101)
+      let t102 = (output.s1.x - output.min.0)
+      parallel (output.s1.fdom$x, 0, 10) {
+        output[t102] = (output[t102] + (input[(t103 + output.s1.fdom$x)]*filter[output.s1.fdom$x]))
+      }
+    }
+    let t105 = max(min(output.min.0, 999), 0)
+    let t104 = ((output.min.0 + output.extent.0) - output.s1.x.epilogue$1)
+    for (output.s1.x, output.s1.x.epilogue$1, t104) {
+      let t106 = (output.s1.x - output.min.0)
+      parallel (output.s1.fdom$x, 0, 10) {
+        output[t106] = (output[t106] + (select((output.s1.x < (1000 - output.s1.fdom$x)), input[(min((output.s1.x + output.s1.fdom$x), 999) - t105)], 0)*filter[output.s1.fdom$x]))
+      }
+    }
+    free input
+    free filter
+  }
+}
+}
+
+

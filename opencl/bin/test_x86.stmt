@@ -1,0 +1,80 @@
+module name=Test, target=x86-64-linux-avx-avx2-debug-f16c-fma-opencl-sse41
+external_plus_metadata func Test (A, B, C) {
+return_second(halide_print(stringify("Entering Pipeline Test", "\n")), "Entering Pipeline Test")
+return_second(halide_print(stringify(" Input Buffer A:", " ", A.buffer, "\n")), " Input Buffer A:")
+return_second(halide_print(stringify(" Input Buffer B:", " ", B.buffer, "\n")), " Input Buffer B:")
+return_second(halide_print(stringify(" Output Buffer C:", " ", C.buffer, "\n")), " Output Buffer C:")
+assert((reinterpret(uint64, C.buffer) != (uint64)0), halide_error_buffer_argument_is_null("C"))
+assert((reinterpret(uint64, B.buffer) != (uint64)0), halide_error_buffer_argument_is_null("B"))
+assert((reinterpret(uint64, A.buffer) != (uint64)0), halide_error_buffer_argument_is_null("A"))
+let A = _halide_buffer_get_host(A.buffer)
+let A.type.code = _halide_buffer_get_type_code(A.buffer)
+let A.type.bits = _halide_buffer_get_type_bits(A.buffer)
+let A.type.lanes = _halide_buffer_get_type_lanes(A.buffer)
+let A.dimensions = _halide_buffer_get_dimensions(A.buffer)
+let A.min.0 = _halide_buffer_get_min(A.buffer, 0)
+let A.extent.0 = _halide_buffer_get_extent(A.buffer, 0)
+let A.stride.0 = _halide_buffer_get_stride(A.buffer, 0)
+let B = _halide_buffer_get_host(B.buffer)
+let B.type.code = _halide_buffer_get_type_code(B.buffer)
+let B.type.bits = _halide_buffer_get_type_bits(B.buffer)
+let B.type.lanes = _halide_buffer_get_type_lanes(B.buffer)
+let B.dimensions = _halide_buffer_get_dimensions(B.buffer)
+let B.min.0 = _halide_buffer_get_min(B.buffer, 0)
+let B.extent.0 = _halide_buffer_get_extent(B.buffer, 0)
+let B.stride.0 = _halide_buffer_get_stride(B.buffer, 0)
+let C = _halide_buffer_get_host(C.buffer)
+let C.type.code = _halide_buffer_get_type_code(C.buffer)
+let C.type.bits = _halide_buffer_get_type_bits(C.buffer)
+let C.type.lanes = _halide_buffer_get_type_lanes(C.buffer)
+let C.dimensions = _halide_buffer_get_dimensions(C.buffer)
+let C.min.0 = _halide_buffer_get_min(C.buffer, 0)
+let C.extent.0 = _halide_buffer_get_extent(C.buffer, 0)
+let C.stride.0 = _halide_buffer_get_stride(C.buffer, 0)
+if (_halide_buffer_is_bounds_query(A.buffer)) {
+  _halide_buffer_init(A.buffer, _halide_buffer_get_shape(A.buffer), reinterpret((void *), (uint64)0), (uint64)0, reinterpret((halide_device_interface_t *), (uint64)0), 0, 32, 1, make_struct((halide_dimension_t *), C.min.0, C.extent.0, 1, 0), (uint64)0)
+}
+if (_halide_buffer_is_bounds_query(B.buffer)) {
+  _halide_buffer_init(B.buffer, _halide_buffer_get_shape(B.buffer), reinterpret((void *), (uint64)0), (uint64)0, reinterpret((halide_device_interface_t *), (uint64)0), 0, 32, 1, make_struct((halide_dimension_t *), C.min.0, C.extent.0, 1, 0), (uint64)0)
+}
+if (_halide_buffer_is_bounds_query(C.buffer)) {
+  _halide_buffer_init(C.buffer, _halide_buffer_get_shape(C.buffer), reinterpret((void *), (uint64)0), (uint64)0, reinterpret((halide_device_interface_t *), (uint64)0), 0, 32, 1, make_struct((halide_dimension_t *), C.min.0, C.extent.0, 1, 0), (uint64)0)
+}
+if (!((_halide_buffer_is_bounds_query(A.buffer) || _halide_buffer_is_bounds_query(B.buffer)) || _halide_buffer_is_bounds_query(C.buffer))) {
+  assert((((A.type.code == (uint8)0) && (A.type.bits == (uint8)32)) && (A.type.lanes == (uint16)1)), halide_error_bad_type("Input buffer A", A.type.code, (uint8)0, A.type.bits, (uint8)32, A.type.lanes, (uint16)1))
+  assert((A.dimensions == 1), halide_error_bad_dimensions("Input buffer A", A.dimensions, 1))
+  assert((((B.type.code == (uint8)0) && (B.type.bits == (uint8)32)) && (B.type.lanes == (uint16)1)), halide_error_bad_type("Input buffer B", B.type.code, (uint8)0, B.type.bits, (uint8)32, B.type.lanes, (uint16)1))
+  assert((B.dimensions == 1), halide_error_bad_dimensions("Input buffer B", B.dimensions, 1))
+  assert((((C.type.code == (uint8)0) && (C.type.bits == (uint8)32)) && (C.type.lanes == (uint16)1)), halide_error_bad_type("Output buffer C", C.type.code, (uint8)0, C.type.bits, (uint8)32, C.type.lanes, (uint16)1))
+  assert((C.dimensions == 1), halide_error_bad_dimensions("Output buffer C", C.dimensions, 1))
+  assert(((A.min.0 <= C.min.0) && (((C.min.0 + C.extent.0) - A.extent.0) <= A.min.0)), halide_error_access_out_of_bounds("Input buffer A", 0, C.min.0, ((C.min.0 + C.extent.0) + -1), A.min.0, ((A.min.0 + A.extent.0) + -1)))
+  assert((0 <= A.extent.0), halide_error_buffer_extents_negative("Input buffer A", 0, A.extent.0))
+  assert(((B.min.0 <= C.min.0) && (((C.min.0 + C.extent.0) - B.extent.0) <= B.min.0)), halide_error_access_out_of_bounds("Input buffer B", 0, C.min.0, ((C.min.0 + C.extent.0) + -1), B.min.0, ((B.min.0 + B.extent.0) + -1)))
+  assert((0 <= B.extent.0), halide_error_buffer_extents_negative("Input buffer B", 0, B.extent.0))
+  assert((0 <= C.extent.0), halide_error_buffer_extents_negative("Output buffer C", 0, C.extent.0))
+  assert((A.stride.0 == 1), halide_error_constraint_violated("A.stride.0", A.stride.0, "1", 1))
+  assert((B.stride.0 == 1), halide_error_constraint_violated("B.stride.0", B.stride.0, "1", 1))
+  assert((C.stride.0 == 1), halide_error_constraint_violated("C.stride.0", C.stride.0, "1", 1))
+  assert((abs(int64(A.extent.0)) <= (uint64)2147483647), halide_error_buffer_allocation_too_large("A", abs(int64(A.extent.0)), (uint64)2147483647))
+  assert((abs(int64(B.extent.0)) <= (uint64)2147483647), halide_error_buffer_allocation_too_large("B", abs(int64(B.extent.0)), (uint64)2147483647))
+  assert((abs(int64(C.extent.0)) <= (uint64)2147483647), halide_error_buffer_allocation_too_large("C", abs(int64(C.extent.0)), (uint64)2147483647))
+  assert((A != reinterpret((void *), (uint64)0)), halide_error_host_is_null("Input buffer A"))
+  assert((B != reinterpret((void *), (uint64)0)), halide_error_host_is_null("Input buffer B"))
+  assert((C != reinterpret((void *), (uint64)0)), halide_error_host_is_null("Output buffer C"))
+  produce C {
+    let halide_copy_to_host_result = halide_copy_to_host(A.buffer)
+    assert((halide_copy_to_host_result == 0), halide_copy_to_host_result)
+    let halide_copy_to_host_result$1 = halide_copy_to_host(B.buffer)
+    assert((halide_copy_to_host_result$1 == 0), halide_copy_to_host_result$1)
+    let halide_copy_to_host_result$2 = halide_copy_to_host(C.buffer)
+    assert((halide_copy_to_host_result$2 == 0), halide_copy_to_host_result$2)
+    for (C.s0.x, C.min.0, C.extent.0) {
+      C[(C.s0.x - C.min.0)] = (A[(C.s0.x - A.min.0)]*B[(C.s0.x - B.min.0)])
+    }
+    _halide_buffer_set_host_dirty(C.buffer, (uint1)1)
+  }
+}
+return_second(halide_print(stringify("Exiting Pipeline Test", "\n")), "Exiting Pipeline Test")
+}
+
+

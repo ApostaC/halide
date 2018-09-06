@@ -1,0 +1,131 @@
+Entering Pipeline mat_mul
+ Input Buffer A: buffer(0, 0x0, 0x7fb1e3693080, 1, float32, {0, 1024, 1}, {0, 1024, 1024})
+ Input Buffer B: buffer(0, 0x0, 0x7fb1e3292080, 1, float32, {0, 1024, 1}, {0, 1024, 1024})
+ Output Buffer out: buffer(0, 0x0, 0x7fb1e2e91080, 0, float32, {0, 1024, 1}, {0, 1024, 1024})
+CL: halide_opencl_init_kernels (user_context: 0x0, state_ptr: 0x563cf6da17a0, program: 0x563cf69c8e60, size: 1899547
+    load_libopencl (user_context: 0x0)
+    Loaded OpenCL runtime library: libOpenCL.so
+    create_opencl_context (user_context: 0x0)
+CL: platform 0 NVIDIA CUDA
+    Got platform 'NVIDIA CUDA', about to create context (t=72950223)
+    Multiple CL devices detected. Selecting the one with the most cores.
+      Device 0 has 28 cores
+      Device 1 has 28 cores
+      Device 2 has 24 cores
+      Device 3 has 24 cores
+    Selected device 1
+      device name: GeForce GTX 1080 Ti
+      device vendor: NVIDIA Corporation
+      device profile: FULL_PROFILE
+      global mem size: 11178 MB
+      max mem alloc size: 2794 MB
+      local mem size: 49152
+      max compute units: 28
+      max workgroup size: 1024
+      max work item dimensions: 3
+      max work item sizes: 1024x1024x64x0
+    clCreateContext -> 0x563cf8bf1080
+    clCreateCommandQueue 0x563cf9754360
+    clCreateProgramWithSource -> 0x563cf96e1c80
+    clBuildProgram 0x563cf96e1c80 -D MAX_CONSTANT_BUFFER_SIZE=65536 -D MAX_CONSTANT_ARGS=9
+    Time: 8.612797e+00 ms
+halide_device_malloc validating input buffer: buffer(0, 0x0, 0x563cf9b537e0, 0, float32, {0, 1024, 1}, {0, 1024, 1024})
+halide_device_malloc: target device interface 0x563cf6d9a248
+CL: halide_opencl_device_malloc (user_context: 0x0, buf: 0x7ffc2da33f40)
+    allocating buffer(0, 0x0, 0x563cf9b537e0, 0, float32, {0, 1024, 1}, {0, 1024, 1024})
+    clCreateBuffer -> 4194304 0x563cf96e1850 device_handle: 0x563cf947e3f0
+    Allocated device buffer 0x563cf947e3f0 for buffer 0x7ffc2da33f40
+CL: validate 0x563cf96e1850 offset: 0: asked for 4194304, actual allocated 4194304
+    Time: 1.203000e-02 ms
+halide_buffer_copy:
+ src buffer(0, 0x0, 0x7fb1e3693080, 1, float32, {0, 1024, 1}, {0, 1024, 1024})
+ interface 0x563cf6d9a248
+ dst buffer(94819880264688, 0x563cf6d9a248, 0x563cf9b537e0, 0, float32, {0, 1024, 1}, {0, 1024, 1024})
+c.extent[0] = 1024
+c.extent[1] = 1024
+CL: halide_opencl_buffer_copy (user_context: 0x0, src: 0x7ffc2da34980, dst: 0x7ffc2da33f40)
+CL: validate 0x563cf96e1850 offset: 0: asked for 0, actual allocated 4194304
+    from host to device, 0x7fb1e3693080 + 0 -> 0x563cf947e3f0 + 0, 4194304 bytes
+    Time: 1.504046e+00 ms
+halide_device_malloc validating input buffer: buffer(0, 0x0, 0x563cf9f53800, 0, float32, {0, 1024, 1}, {0, 1024, 1024})
+halide_device_malloc: target device interface 0x563cf6d9a248
+CL: halide_opencl_device_malloc (user_context: 0x0, buf: 0x7ffc2da33f80)
+    allocating buffer(0, 0x0, 0x563cf9f53800, 0, float32, {0, 1024, 1}, {0, 1024, 1024})
+    clCreateBuffer -> 4194304 0x563cf998f7a0 device_handle: 0x563cf998f780
+    Allocated device buffer 0x563cf998f780 for buffer 0x7ffc2da33f80
+CL: validate 0x563cf998f7a0 offset: 0: asked for 4194304, actual allocated 4194304
+    Time: 8.666000e-03 ms
+halide_buffer_copy:
+ src buffer(0, 0x0, 0x7fb1e3292080, 1, float32, {0, 1024, 1}, {0, 1024, 1024})
+ interface 0x563cf6d9a248
+ dst buffer(94819885578112, 0x563cf6d9a248, 0x563cf9f53800, 0, float32, {0, 1024, 1}, {0, 1024, 1024})
+c.extent[0] = 1024
+c.extent[1] = 1024
+CL: halide_opencl_buffer_copy (user_context: 0x0, src: 0x7ffc2da34a10, dst: 0x7ffc2da33f80)
+CL: validate 0x563cf998f7a0 offset: 0: asked for 0, actual allocated 4194304
+    from host to device, 0x7fb1e3292080 + 0 -> 0x563cf998f780 + 0, 4194304 bytes
+    Time: 1.415799e+00 ms
+halide_device_malloc validating input buffer: buffer(0, 0x0, 0x563cfa353840, 0, float32, {0, 1024, 1}, {0, 1024, 1024})
+halide_device_malloc: target device interface 0x563cf6d9a248
+CL: halide_opencl_device_malloc (user_context: 0x0, buf: 0x7ffc2da33fc0)
+    allocating buffer(0, 0x0, 0x563cfa353840, 0, float32, {0, 1024, 1}, {0, 1024, 1024})
+    clCreateBuffer -> 4194304 0x563cf9991380 device_handle: 0x563cf9991360
+    Allocated device buffer 0x563cf9991360 for buffer 0x7ffc2da33fc0
+CL: validate 0x563cf9991380 offset: 0: asked for 4194304, actual allocated 4194304
+    Time: 1.777300e-02 ms
+halide_copy_to_device validating input buffer: buffer(94819885578112, 0x563cf6d9a248, 0x563cf9f53800, 2, float32, {0, 1024, 1}, {0, 1024, 1024})
+halide_copy_to_device validating input buffer: buffer(94819880264688, 0x563cf6d9a248, 0x563cf9b537e0, 2, float32, {0, 1024, 1}, {0, 1024, 1024})
+CL: halide_opencl_run (user_context: 0x0, entry: kernel_prod_global_wrapper_s0_y_y___block_id_y, blocks: 4x128x1, threads: 32x1x1, shmem: 0
+    clCreateKernel kernel_prod_global_wrapper_s0_y_y___block_id_y ->     Time: 5.489000e-03 ms
+    clSetKernelArg 0 8 [0x563cf947e3f0 ...] 1
+Mapped dev handle is: 0x563cf96e1850
+    clSetKernelArg 1 8 [0x563cf998f780 ...] 1
+Mapped dev handle is: 0x563cf998f7a0
+    clSetKernelArg 2 8 [0x563cf9991360 ...] 1
+Mapped dev handle is: 0x563cf9991380
+    clSetKernelArg 3 0 [NULL]
+    clEnqueueNDRangeKernel 4x128x1, 32x1x1 -> CL_SUCCESS
+    Releasing kernel 0x563cf9991a30
+    clReleaseKernel finished0x563cf9991a30
+    Time: 9.021450e-01 ms
+halide_buffer_copy:
+ src buffer(94819885585248, 0x563cf6d9a248, 0x563cfa353840, 2, float32, {0, 1024, 1}, {0, 1024, 1024})
+ interface 0x0
+ dst buffer(0, 0x0, 0x563cf9b537e0, 0, float32, {0, 1024, 1}, {0, 1024, 1024})
+c.extent[0] = 1024
+c.extent[1] = 1024
+CL: halide_opencl_buffer_copy (user_context: 0x0, src: 0x7ffc2da33fc0, dst: 0x7ffc2da34000)
+CL: validate 0x563cf9991380 offset: 0: asked for 0, actual allocated 4194304
+    from device to host, 0x563cf9991360 + 0 -> 0x563cf9b537e0 + 0, 4194304 bytes
+    Time: 3.380465e+00 ms
+halide_device_free validating input buffer: buffer(94819885585248, 0x563cf6d9a248, 0x563cfa353840, 2, float32, {0, 1024, 1}, {0, 1024, 1024})
+CL: halide_opencl_device_free (user_context: 0x0, buf: 0x7ffc2da33fc0) cl_mem: 0x563cf9991380
+CL: validate 0x563cf9991380 offset: 0: asked for 0, actual allocated 4194304
+    clReleaseMemObject 0x563cf9991380
+    Time: 3.016060e-01 ms
+halide_copy_to_host validating input buffer: buffer(0, 0x0, 0x563cf9b537e0, 1, float32, {0, 1024, 1}, {0, 1024, 1024})
+halide_copy_to_host validating input buffer: buffer(0, 0x0, 0x7fb1e2e91080, 0, float32, {0, 1024, 1}, {0, 1024, 1024})
+halide_device_free validating input buffer: buffer(0, 0x0, 0x563cf9b537e0, 1, float32, {0, 1024, 1}, {0, 1024, 1024})
+Exiting Pipeline mat_mul
+halide_device_free validating input buffer: buffer(0, 0x0, 0x563cf9b537e0, 1, float32, {0, 1024, 1}, {0, 1024, 1024})
+halide_device_free validating input buffer: buffer(0, 0x0, 0x563cfa353840, 2, float32, {0, 1024, 1}, {0, 1024, 1024})
+halide_device_free validating input buffer: buffer(94819885578112, 0x563cf6d9a248, 0x563cf9f53800, 2, float32, {0, 1024, 1}, {0, 1024, 1024})
+CL: halide_opencl_device_free (user_context: 0x0, buf: 0x7ffc2da33f80) cl_mem: 0x563cf998f7a0
+CL: validate 0x563cf998f7a0 offset: 0: asked for 0, actual allocated 4194304
+    clReleaseMemObject 0x563cf998f7a0
+    Time: 2.910140e-01 ms
+halide_device_free validating input buffer: buffer(94819880264688, 0x563cf6d9a248, 0x563cf9b537e0, 2, float32, {0, 1024, 1}, {0, 1024, 1024})
+CL: halide_opencl_device_free (user_context: 0x0, buf: 0x7ffc2da33f40) cl_mem: 0x563cf96e1850
+CL: validate 0x563cf96e1850 offset: 0: asked for 0, actual allocated 4194304
+    clReleaseMemObject 0x563cf96e1850
+    Time: 3.179540e-01 ms
+Before!
+generating input...
+in to mat mul kernel
+Kernel Finished!
+Copy answer to host finished!
+halide_memoization_cache_cleanup
+CL: halide_opencl_device_release (user_context: 0x0)
+    clReleaseProgram 0x563cf96e1c80
+    clReleaseCommandQueue 0x563cf9754360
+    clReleaseContext 0x563cf8bf1080

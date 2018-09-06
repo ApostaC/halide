@@ -1,0 +1,79 @@
+module name=out, target=x86-64-linux-avx-avx2-f16c-fma-sse41
+external_plus_metadata func out (out) {
+assert((reinterpret(uint64, out.buffer) != (uint64)0), halide_error_buffer_argument_is_null("out"))
+let out = _halide_buffer_get_host(out.buffer)
+let out.type.code = _halide_buffer_get_type_code(out.buffer)
+let out.type.bits = _halide_buffer_get_type_bits(out.buffer)
+let out.type.lanes = _halide_buffer_get_type_lanes(out.buffer)
+let out.dimensions = _halide_buffer_get_dimensions(out.buffer)
+let out.min.0 = _halide_buffer_get_min(out.buffer, 0)
+let out.extent.0 = _halide_buffer_get_extent(out.buffer, 0)
+let out.stride.0 = _halide_buffer_get_stride(out.buffer, 0)
+let out.min.1 = _halide_buffer_get_min(out.buffer, 1)
+let out.extent.1 = _halide_buffer_get_extent(out.buffer, 1)
+let out.stride.1 = _halide_buffer_get_stride(out.buffer, 1)
+let out.extent.0.required = ((min(((((out.extent.0 + -1)/4)*4) + 4), out.extent.0) + out.min.0) - min(out.min.0, ((out.min.0 + out.extent.0) + -4)))
+let out.min.0.required = min(out.min.0, ((out.min.0 + out.extent.0) + -4))
+let out.extent.1.required = ((min(((((out.extent.1 + -1)/4)*4) + 4), out.extent.1) + out.min.1) - min(out.min.1, ((out.min.1 + out.extent.1) + -4)))
+let out.min.1.required = min(out.min.1, ((out.min.1 + out.extent.1) + -4))
+if (_halide_buffer_is_bounds_query(out.buffer)) {
+  _halide_buffer_init(out.buffer, _halide_buffer_get_shape(out.buffer), reinterpret((void *), (uint64)0), (uint64)0, reinterpret((halide_device_interface_t *), (uint64)0), 0, 32, 2, make_struct((halide_dimension_t *), out.min.0.required, out.extent.0.required, 1, 0, out.min.1.required, out.extent.1.required, out.extent.0.required, 0), (uint64)0)
+}
+if (!_halide_buffer_is_bounds_query(out.buffer)) {
+  assert((((out.type.code == (uint8)0) && (out.type.bits == (uint8)32)) && (out.type.lanes == (uint16)1)), halide_error_bad_type("Output buffer out", out.type.code, (uint8)0, out.type.bits, (uint8)32, out.type.lanes, (uint16)1))
+  assert((out.dimensions == 2), halide_error_bad_dimensions("Output buffer out", out.dimensions, 2))
+  assert(((out.min.0 <= out.min.0.required) && (((out.min.0.required + out.extent.0.required) - out.extent.0) <= out.min.0)), halide_error_access_out_of_bounds("Output buffer out", 0, out.min.0.required, ((out.min.0.required + out.extent.0.required) + -1), out.min.0, ((out.min.0 + out.extent.0) + -1)))
+  assert((0 <= out.extent.0), halide_error_buffer_extents_negative("Output buffer out", 0, out.extent.0))
+  assert(((out.min.1 <= out.min.1.required) && (((out.min.1.required + out.extent.1.required) - out.extent.1) <= out.min.1)), halide_error_access_out_of_bounds("Output buffer out", 1, out.min.1.required, ((out.min.1.required + out.extent.1.required) + -1), out.min.1, ((out.min.1 + out.extent.1) + -1)))
+  assert((0 <= out.extent.1), halide_error_buffer_extents_negative("Output buffer out", 1, out.extent.1))
+  assert((out.stride.0 == 1), halide_error_constraint_violated("out.stride.0", out.stride.0, "1", 1))
+  let out.total_extent.1 = (int64(out.extent.1)*int64(out.extent.0))
+  assert((abs(int64(out.extent.0)) <= (uint64)2147483647), halide_error_buffer_allocation_too_large("out", abs(int64(out.extent.0)), (uint64)2147483647))
+  assert((abs((int64(out.extent.1)*int64(out.stride.1))) <= (uint64)2147483647), halide_error_buffer_allocation_too_large("out", abs((int64(out.extent.1)*int64(out.stride.1))), (uint64)2147483647))
+  assert((out.total_extent.1 <= (int64)2147483647), halide_error_buffer_extents_too_large("out", out.total_extent.1, (int64)2147483647))
+  assert((out != reinterpret((void *), (uint64)0)), halide_error_host_is_null("Output buffer out"))
+  produce out {
+    let t2 = ((out.extent.1 + 3)/4)
+    let t4 = ((out.extent.0 + 3)/4)
+    let t3 = ((out.min.1 + out.extent.1) + -4)
+    let t5 = ((out.min.0 + out.extent.0) + -4)
+    let t6 = (out.min.0 + (out.min.1*out.stride.1))
+    for (out.s0.y.yo, 0, t2) {
+      let out.s0.y.yi.base = min((out.min.1 + (out.s0.y.yo*4)), t3)
+      for (out.s0.x.xo, 0, t4) {
+        let out.s0.x.xi.base = min((out.min.0 + (out.s0.x.xo*4)), t5)
+        allocate prod[int32 * 16]
+        produce prod {
+          prod[0] = (out.s0.y.yi.base + out.s0.x.xi.base)
+          prod[1] = ((out.s0.y.yi.base + out.s0.x.xi.base) + 1)
+          prod[2] = ((out.s0.y.yi.base + out.s0.x.xi.base) + 2)
+          prod[3] = ((out.s0.y.yi.base + out.s0.x.xi.base) + 3)
+          prod[4] = ((out.s0.y.yi.base + out.s0.x.xi.base) + 1)
+          prod[5] = ((out.s0.y.yi.base + out.s0.x.xi.base) + 2)
+          prod[6] = ((out.s0.y.yi.base + out.s0.x.xi.base) + 3)
+          prod[7] = ((out.s0.y.yi.base + out.s0.x.xi.base) + 4)
+          prod[8] = ((out.s0.y.yi.base + out.s0.x.xi.base) + 2)
+          prod[9] = ((out.s0.y.yi.base + out.s0.x.xi.base) + 3)
+          prod[10] = ((out.s0.y.yi.base + out.s0.x.xi.base) + 4)
+          prod[11] = ((out.s0.y.yi.base + out.s0.x.xi.base) + 5)
+          prod[12] = ((out.s0.y.yi.base + out.s0.x.xi.base) + 3)
+          prod[13] = ((out.s0.y.yi.base + out.s0.x.xi.base) + 4)
+          prod[14] = ((out.s0.y.yi.base + out.s0.x.xi.base) + 5)
+          prod[15] = ((out.s0.y.yi.base + out.s0.x.xi.base) + 6)
+        }
+        let t13 = (out.s0.x.xi.base - t6)
+        for (out.s0.y.yi, 0, 4) {
+          let t14 = (out.s0.y.yi*4)
+          let t15 = (t13 + ((out.s0.y.yi.base + out.s0.y.yi)*out.stride.1))
+          for (out.s0.x.xi, 0, 4) {
+            out[(t15 + out.s0.x.xi)] = prod[(t14 + out.s0.x.xi)]
+          }
+        }
+        free prod
+      }
+    }
+  }
+}
+}
+
+
